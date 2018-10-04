@@ -38,17 +38,17 @@ public class SignInActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
         signUpButton=findViewById(R.id.bSignUp);
         mAuth = FirebaseAuth.getInstance();
-//
-//        signUpButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.i("Clicked","SignUp");
-//                registerUser();
-//            }
-//        });
+
+/*        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("Clicked","SignUp");
+                registerUser();
+            }
+        });*/
     }
 
-    /*@Override
+/*    @Override
     protected void onStart() {
         super.onStart();
 
