@@ -10,29 +10,33 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sign_in);
+
         mAuth = FirebaseAuth.getInstance();
         mAuthStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
+                if(user == null) {
                     //user is signed out
                     Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                     startActivity(intent);
-                }else{
-                    Intent intent=new Intent(MainActivity.this,OverviewActivity.class);
+                }
+                else{
+                    Intent intent=new Intent(MainActivity.this, OverviewActivity.class);
                     startActivity(intent);
                 }
             }
         };
 
-        finish();
+        //finish();
     }
 }
