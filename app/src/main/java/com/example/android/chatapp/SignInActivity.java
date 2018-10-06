@@ -55,14 +55,7 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-/*    @Override
-    protected void onStart() {
-        super.onStart();
 
-        if (mAuth.getCurrentUser() != null) {
-            //handle the already login user
-        }
-    }*/
 private void logInUser() {
     final String email = editTextEmail.getText().toString().trim();
     String password = editTextPassword.getText().toString().trim();
