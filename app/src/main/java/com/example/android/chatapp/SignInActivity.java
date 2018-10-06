@@ -1,6 +1,7 @@
 package com.example.android.chatapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,7 +44,7 @@ public class SignInActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Clicked","SignUp");
+                Log.i("Clicked", "SignUp");
                 registerUser();
             }
         });
@@ -55,6 +56,7 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+<<<<<<< HEAD
 
 private void logInUser() {
     final String email = editTextEmail.getText().toString().trim();
@@ -66,42 +68,66 @@ private void logInUser() {
         progressBar.setVisibility(View.GONE);
         return;
     }
+=======
+    /*    @Override
+        protected void onStart() {
+            super.onStart();
 
-    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-        editTextEmail.setError(getString(R.string.input_error_email_invalid));
-        editTextEmail.requestFocus();
-        progressBar.setVisibility(View.GONE);
-        return;
-    }
+            if (mAuth.getCurrentUser() != null) {
+                //handle the already login user
+            }
+        }*/
+    private void logInUser() {
+        final String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
-    if (password.isEmpty()) {
-        editTextPassword.setError(getString(R.string.input_error_password));
-        editTextPassword.requestFocus();
-        progressBar.setVisibility(View.GONE);
-        return;
-    }
+        if (email.isEmpty()) {
+            editTextEmail.setError(getString(R.string.input_error_email));
+            editTextEmail.requestFocus();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+>>>>>>> 7cc06f6205666f78d9252a3078089191ba77cf04
 
-    if (password.length() < 6) {
-        editTextPassword.setError(getString(R.string.input_error_password_length));
-        editTextPassword.requestFocus();
-        progressBar.setVisibility(View.GONE);
-        return;
-    }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError(getString(R.string.input_error_email_invalid));
+            editTextEmail.requestFocus();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
 
-    progressBar.setVisibility(View.VISIBLE);
-    mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(SignInActivity.this, getString(R.string.logIn_success), Toast.LENGTH_LONG).show();
-                    } else {
-                        //error message
+        if (password.isEmpty()) {
+            editTextPassword.setError(getString(R.string.input_error_password));
+            editTextPassword.requestFocus();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        if (password.length() < 6) {
+            editTextPassword.setError(getString(R.string.input_error_password_length));
+            editTextPassword.requestFocus();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(SignInActivity.this, getString(R.string.logIn_success), Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(SignInActivity.this, OverviewActivity.class);
+                            finish();
+                            startActivity(intent);
+                        } else {
+                            //error message
+                        }
                     }
-                }
-            });
-}
+                });
+    }
+
     private void registerUser() {
 
         final String email = editTextEmail.getText().toString().trim();
@@ -154,6 +180,9 @@ private void logInUser() {
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()) {
                                         Toast.makeText(SignInActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(SignInActivity.this, OverviewActivity.class);
+                                        finish();
+                                        startActivity(intent);
                                     } else {
                                         //display a failure message
                                     }
