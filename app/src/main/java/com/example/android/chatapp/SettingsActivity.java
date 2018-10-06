@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SettingsActivity extends AppCompatActivity{
-
+    TextView profilepic, logout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +18,8 @@ public class SettingsActivity extends AppCompatActivity{
         // Set the content of the activity to use the settings_activity.xml layout file
         setContentView(R.layout.activity_settings);
 
-        TextView profilepic = findViewById(R.id.profilePicture);
+
+        profilepic = findViewById(R.id.profilePicture);
 
         //Set a click listener on that view
         profilepic.setOnClickListener(new View.OnClickListener() {
@@ -29,7 +30,8 @@ public class SettingsActivity extends AppCompatActivity{
             }
         });
 
-        TextView logout = findViewById(R.id.logout);
+
+        logout = findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

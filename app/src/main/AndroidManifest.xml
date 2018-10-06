@@ -26,6 +26,7 @@
         <activity android:name=".SettingsActivity"/>
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NewChatActivity"></activity>
+        <activity android:name=".ProfilePicActivity"></activity>
     </application>
 
 </manifest>
