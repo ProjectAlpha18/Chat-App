@@ -44,7 +44,7 @@ public class SignInActivity extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Clicked","SignUp");
+                Log.i("Clicked", "SignUp");
                 registerUser();
             }
         });
@@ -56,63 +56,64 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-/*    @Override
-    protected void onStart() {
-        super.onStart();
+    /*    @Override
+        protected void onStart() {
+            super.onStart();
 
-        if (mAuth.getCurrentUser() != null) {
-            //handle the already login user
+            if (mAuth.getCurrentUser() != null) {
+                //handle the already login user
+            }
+        }*/
+    private void logInUser() {
+        final String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+
+        if (email.isEmpty()) {
+            editTextEmail.setError(getString(R.string.input_error_email));
+            editTextEmail.requestFocus();
+            progressBar.setVisibility(View.GONE);
+            return;
         }
-    }*/
-private void logInUser() {
-    final String email = editTextEmail.getText().toString().trim();
-    String password = editTextPassword.getText().toString().trim();
 
-    if (email.isEmpty()) {
-        editTextEmail.setError(getString(R.string.input_error_email));
-        editTextEmail.requestFocus();
-        progressBar.setVisibility(View.GONE);
-        return;
-    }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            editTextEmail.setError(getString(R.string.input_error_email_invalid));
+            editTextEmail.requestFocus();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
 
-    if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-        editTextEmail.setError(getString(R.string.input_error_email_invalid));
-        editTextEmail.requestFocus();
-        progressBar.setVisibility(View.GONE);
-        return;
-    }
+        if (password.isEmpty()) {
+            editTextPassword.setError(getString(R.string.input_error_password));
+            editTextPassword.requestFocus();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
 
-    if (password.isEmpty()) {
-        editTextPassword.setError(getString(R.string.input_error_password));
-        editTextPassword.requestFocus();
-        progressBar.setVisibility(View.GONE);
-        return;
-    }
+        if (password.length() < 6) {
+            editTextPassword.setError(getString(R.string.input_error_password_length));
+            editTextPassword.requestFocus();
+            progressBar.setVisibility(View.GONE);
+            return;
+        }
 
-    if (password.length() < 6) {
-        editTextPassword.setError(getString(R.string.input_error_password_length));
-        editTextPassword.requestFocus();
-        progressBar.setVisibility(View.GONE);
-        return;
-    }
-
-    progressBar.setVisibility(View.VISIBLE);
-    mAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        progressBar.setVisibility(View.GONE);
-                        Toast.makeText(SignInActivity.this, getString(R.string.logIn_success), Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(SignInActivity.this, OverviewActivity.class);
-                        finish();
-                        startActivity(intent);
-                    } else {
-                        //error message
+        progressBar.setVisibility(View.VISIBLE);
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(SignInActivity.this, getString(R.string.logIn_success), Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(SignInActivity.this, OverviewActivity.class);
+                            finish();
+                            startActivity(intent);
+                        } else {
+                            //error message
+                        }
                     }
-                }
-            });
-}
+                });
+    }
+
     private void registerUser() {
 
         final String email = editTextEmail.getText().toString().trim();
