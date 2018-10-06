@@ -1,6 +1,7 @@
 package com.example.android.chatapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -103,6 +104,9 @@ private void logInUser() {
                     if (task.isSuccessful()) {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(SignInActivity.this, getString(R.string.logIn_success), Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SignInActivity.this, OverviewActivity.class);
+                        finish();
+                        startActivity(intent);
                     } else {
                         //error message
                     }
@@ -161,7 +165,9 @@ private void logInUser() {
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()) {
                                         Toast.makeText(SignInActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
-                                        //TODO: create an intent to the Overview activity
+                                        Intent intent = new Intent(SignInActivity.this, OverviewActivity.class);
+                                        finish();
+                                        startActivity(intent);
                                     } else {
                                         //display a failure message
                                     }
