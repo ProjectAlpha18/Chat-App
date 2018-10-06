@@ -37,6 +37,7 @@ public class Tab1_ChatsFragment extends Fragment {
         //TODO
         //add items to list
         chatItemList.add(new ChatItem("https://image.flaticon.com/icons/png/512/33/33785.png", "Aman"));
+        chatItemList.add(new ChatItem("https://image.flaticon.com/icons/png/512/33/33785.png", "Hello"));
         chatsAdapter = new ChatsAdapter(getActivity(), chatItemList);
         recyclerView.setAdapter(chatsAdapter);
     }
