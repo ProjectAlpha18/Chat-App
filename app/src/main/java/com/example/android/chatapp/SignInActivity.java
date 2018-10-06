@@ -161,6 +161,7 @@ private void logInUser() {
                                     progressBar.setVisibility(View.GONE);
                                     if (task.isSuccessful()) {
                                         Toast.makeText(SignInActivity.this, getString(R.string.registration_success), Toast.LENGTH_LONG).show();
+                                        //TODO: create an intent to the Overview activity
                                     } else {
                                         //display a failure message
                                     }
