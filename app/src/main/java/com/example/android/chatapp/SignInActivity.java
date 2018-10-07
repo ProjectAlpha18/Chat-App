@@ -91,12 +91,13 @@ public class SignInActivity extends AppCompatActivity {
                         else {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(SignInActivity.this, getString(R.string.logIn_failed), Toast.LENGTH_LONG).show();
+
                             AlertDialog.Builder mBuilder = new AlertDialog.Builder(SignInActivity.this);
                             View mView = getLayoutInflater().inflate(R.layout.activity_register_user_alert, null);
-
                             mBuilder.setView(mView);
                             AlertDialog dialog = mBuilder.create();
                             dialog.show();
+
                         }
                     }
                 });
