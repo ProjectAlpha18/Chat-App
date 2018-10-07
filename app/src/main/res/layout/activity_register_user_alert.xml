@@ -54,7 +54,6 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:text="Sign Up"
             tools:text="Sign Up" />
 
     </LinearLayout>
