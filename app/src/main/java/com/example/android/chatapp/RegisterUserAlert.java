@@ -43,7 +43,6 @@ public class RegisterUserAlert extends AppCompatActivity {
     }
 
     private void registerUser() {
-
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 

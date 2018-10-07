@@ -28,7 +28,7 @@ public class SignInActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
-    private Button signUpButton, logInButton;
+    private Button logInButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class SignInActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.etPassword);
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
-        signUpButton = findViewById(R.id.bSignUp);
+        //signUpButton = findViewById(R.id.bSignUp);
         logInButton = findViewById(R.id.bLogin);
         mAuth = FirebaseAuth.getInstance();
 
@@ -51,31 +51,30 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+    private void logInUser() {
+        final String email = editTextEmail.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
 
-private void logInUser() {
-    final String email = editTextEmail.getText().toString().trim();
-    String password = editTextPassword.getText().toString().trim();
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                editTextEmail.setError(getString(R.string.input_error_email_invalid));
+                editTextEmail.requestFocus();
+                progressBar.setVisibility(View.GONE);
+                return;
+            }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            editTextEmail.setError(getString(R.string.input_error_email_invalid));
-            editTextEmail.requestFocus();
-            progressBar.setVisibility(View.GONE);
-            return;
-        }
+            if (password.isEmpty()) {
+                editTextPassword.setError(getString(R.string.input_error_password));
+                editTextPassword.requestFocus();
+                progressBar.setVisibility(View.GONE);
+                return;
+            }
 
-        if (password.isEmpty()) {
-            editTextPassword.setError(getString(R.string.input_error_password));
-            editTextPassword.requestFocus();
-            progressBar.setVisibility(View.GONE);
-            return;
-        }
-
-        if (password.length() < 6) {
-            editTextPassword.setError(getString(R.string.input_error_password_length));
-            editTextPassword.requestFocus();
-            progressBar.setVisibility(View.GONE);
-            return;
-        }
+            if (password.length() < 6) {
+                editTextPassword.setError(getString(R.string.input_error_password_length));
+                editTextPassword.requestFocus();
+                progressBar.setVisibility(View.GONE);
+                return;
+            }
 
         progressBar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email, password)
@@ -93,9 +92,11 @@ private void logInUser() {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(SignInActivity.this, getString(R.string.logIn_failed), Toast.LENGTH_LONG).show();
                             AlertDialog.Builder mBuilder = new AlertDialog.Builder(SignInActivity.this);
-                            View RegisterView = getLayoutInflater().inflate(R.layout.activity_register_user_alert, null);
+                            View mView = getLayoutInflater().inflate(R.layout.activity_register_user_alert, null);
 
-                            (RegisterView);
+                            mBuilder.setView(mView);
+                            AlertDialog dialog = mBuilder.create();
+                            dialog.show();
                         }
                     }
                 });
