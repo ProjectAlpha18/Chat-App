@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterUserAlert extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private EditText editTextEmail,editTextPassword;
+    private EditText editTextEmail,editTextPassword,editTextUsername;
     private Button signUpButton;
 
     @Override
@@ -28,6 +28,7 @@ public class RegisterUserAlert extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user_alert);
 
+        editTextUsername = findViewById(R.id.etUsername);
         editTextEmail = findViewById(R.id.etEmail);
         editTextPassword = findViewById(R.id.etPassword);
         signUpButton = findViewById(R.id.bSignUp);
@@ -43,8 +44,24 @@ public class RegisterUserAlert extends AppCompatActivity {
     }
 
     private void registerUser() {
+        final String username = editTextUsername.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+
+        if (username.isEmpty()) {
+            editTextEmail.setError(getString(R.string.input_error_username));
+            editTextEmail.requestFocus();
+            //progressBar.setVisibility(View.GONE);
+            return;
+        }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+            editTextEmail.setError(getString(R.string.input_error_username_invalid));
+            editTextEmail.requestFocus();
+            //progressBar.setVisibility(View.GONE);
+            return;
+        }
+
 
         if (email.isEmpty()) {
             editTextEmail.setError(getString(R.string.input_error_email));
@@ -83,7 +100,7 @@ public class RegisterUserAlert extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
 
-                            User user = new User(email);
+                            User user = new User(email,username);
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
