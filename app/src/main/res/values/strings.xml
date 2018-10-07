@@ -13,7 +13,8 @@
     <string name="input_error_email">Email required</string>
     <string name="input_error_password">Password required</string>
     <string name="input_error_password_length">Password should be atleast 6 characters long</string>
-    <string name="registration_success">Registered Successfully</string>
+    <string name="registration_success">Registered Successfully!</string>
     <string name="input_error_email_invalid">Enter a valid email</string>
-    <string name="logIn_success">Logged In Successfully</string>
+    <string name="logIn_success">Logged In Successfully!</string>
+    <string name="logIn_failed">User not found, Register here.</string>
 </resources>

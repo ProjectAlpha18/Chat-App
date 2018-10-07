@@ -36,6 +36,7 @@
         <activity
             android:name=".ChatWindowActivity"
             android:parentActivityName=".OverviewActivity" />
+        <activity android:name=".RegisterUserAlert"></activity>
     </application>
 
 </manifest>
