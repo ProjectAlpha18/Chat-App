@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    tools:context=".RegisterUserAlert">
+    tools:context=".RegisterUserAlert"
+    tools:layout_editor_absoluteY="81dp">
 
     <ProgressBar
         android:id="@+id/progressbar"
@@ -24,10 +24,10 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:layout_weight="1"
-            android:text="Register Here"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="25sp"
+            tools:text="Register here" />
 
 
         <EditText
@@ -46,6 +46,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginBottom="8dp"
+            android:ems="10"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:nextFocusDown="@id/etRegisterPassword"/>
@@ -55,6 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:ems="10"
             android:hint="Password"
             android:inputType="textPassword" />
 
@@ -69,7 +71,7 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:text="Sign Up" />
+            tools:text="Sign Up" />
 
 
 
