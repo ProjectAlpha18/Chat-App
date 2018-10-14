@@ -2,13 +2,10 @@ package com.example.android.chatapp;
 
 
 import android.content.Intent;
-import android.content.pm.SigningInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +17,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 
 public class SignInActivity extends AppCompatActivity {
@@ -39,7 +35,6 @@ public class SignInActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.etPassword);
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
-        //signUpButton = findViewById(R.id.bSignUp);
         logInButton = findViewById(R.id.bLogin);
         mAuth = FirebaseAuth.getInstance();
 
@@ -91,16 +86,15 @@ public class SignInActivity extends AppCompatActivity {
                         else {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(SignInActivity.this, getString(R.string.logIn_failed), Toast.LENGTH_LONG).show();
-
-                            AlertDialog.Builder mBuilder = new AlertDialog.Builder(SignInActivity.this);
-                            View mView = getLayoutInflater().inflate(R.layout.activity_register_user_alert, null);
-                            mBuilder.setView(mView);
-                            AlertDialog dialog = mBuilder.create();
-                            dialog.show();
+                            openDialog();
 
                         }
                     }
                 });
     }
 
+    private void openDialog(){
+        RegisterUserAlert alertDialog = new RegisterUserAlert();
+        alertDialog.show(getSupportFragmentManager(),"Register Dialog");
+    }
 }
