@@ -18,5 +18,5 @@
     <string name="input_error_username">Username required</string>
     <string name="input_error_username_invalid">Username already taken!</string>
     <string name="logIn_success">Logged In Successfully!</string>
-    <string name="logIn_failed">User not found, Register here.</string>
+    <string name="logIn_failed">Email or password wrongly entered, Register if new user.</string>
 </resources>

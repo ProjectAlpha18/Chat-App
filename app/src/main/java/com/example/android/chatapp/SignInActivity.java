@@ -24,7 +24,7 @@ public class SignInActivity extends AppCompatActivity {
     private EditText editTextEmail, editTextPassword;
     private ProgressBar progressBar;
     private FirebaseAuth mAuth;
-    private Button logInButton;
+    private Button logInButton,signUpAlertButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,12 +36,20 @@ public class SignInActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressbar);
         progressBar.setVisibility(View.GONE);
         logInButton = findViewById(R.id.bLogin);
+        signUpAlertButton = findViewById(R.id.bSignUpAlert);
         mAuth = FirebaseAuth.getInstance();
 
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 logInUser();
+            }
+        });
+
+        signUpAlertButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog();
             }
         });
     }
@@ -86,8 +94,6 @@ public class SignInActivity extends AppCompatActivity {
                         else {
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(SignInActivity.this, getString(R.string.logIn_failed), Toast.LENGTH_LONG).show();
-                            openDialog();
-
                         }
                     }
                 });
