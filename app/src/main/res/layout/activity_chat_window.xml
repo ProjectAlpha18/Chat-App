@@ -1,33 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatWindowActivity">
+
     <LinearLayout
+        android:id="@+id/chatWindowHeaderLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/chatWindowHeaderLayout"
-        android:padding="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
+
         <ImageView
             android:id="@+id/chatWindowDisplayPic"
-            android:layout_margin="5dp"
             android:layout_width="34dp"
-            android:layout_height="34dp" />
+            android:layout_height="34dp"
+            android:layout_margin="5dp" />
+
         <TextView
             android:id="@+id/chatWindowUserName"
-            android:textSize="34sp"
-            android:textColor="@color/black"
-            android:text="Abc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Abc"
+            android:textColor="@color/black"
+            android:textSize="34sp" />
     </LinearLayout>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/chatWindowRecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/chatWindowHeaderLayout"/>
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/chatWindowHeaderLayout" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <EditText
+            android:id="@+id/chatWindowMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8" />
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send" />
+
+    </LinearLayout>
 </RelativeLayout>
