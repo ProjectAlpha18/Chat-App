@@ -1,8 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChatWindowActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chatWindowHeaderLayout"
+        android:padding="5dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/chatWindowDisplayPic"
+            android:layout_margin="5dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp" />
+        <TextView
+            android:id="@+id/chatWindowUserName"
+            android:textSize="34sp"
+            android:textColor="@color/black"
+            android:text="Abc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/chatWindowRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/chatWindowHeaderLayout"/>
+</RelativeLayout>

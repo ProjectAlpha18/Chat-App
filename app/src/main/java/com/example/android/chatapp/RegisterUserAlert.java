@@ -134,6 +134,7 @@ public class RegisterUserAlert extends AppCompatDialogFragment {
 
                         } else {
                             Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });

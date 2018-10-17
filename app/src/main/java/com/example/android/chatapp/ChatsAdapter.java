@@ -46,7 +46,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
             public void onClick(View view) {
                 Intent intent = new Intent(mCtx, ChatWindowActivity.class);
                 intent.putExtra("User Name", chatItem.getUserName());
-                intent.putExtra("Image Path", chatItem.getImagePath());
+                intent.putExtra("Image Url", chatItem.getImagePath());
 
                 mCtx.startActivity(intent);
             }
