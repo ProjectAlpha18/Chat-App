@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,11 +39,13 @@ public class NewChatActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
-                    String userName = d.child("Name").getValue(String.class);
+                    Log.i("ddd",d.toString());
+                    String userName = d.child("username").getValue(String.class);
                     Log.i("username", userName);
-                    String displayPicUrl = d.child("displayPictureLink").getValue(String.class);
+                    String displayPicUrl = d.child("displayPictureUrl").getValue(String.class);
                     Log.i("url", displayPicUrl);
-                    allUsersList.add(new ChatItem(displayPicUrl, userName));
+                    if(!d.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                        allUsersList.add(new ChatItem(displayPicUrl, userName));
                 }
                 usersAdapter = new ChatsAdapter(NewChatActivity.this, allUsersList);
                 usersRecyclerView.setAdapter(usersAdapter);

@@ -14,11 +14,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/usersRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@id/usersProgressBar"
-        android:padding="5dp"
-        android:id="@+id/usersRecyclerView">
+        android:padding="5dp">
 
     </android.support.v7.widget.RecyclerView>
 </android.support.constraint.ConstraintLayout>

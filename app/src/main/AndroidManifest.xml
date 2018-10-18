@@ -35,8 +35,8 @@
             android:parentActivityName=".SettingsActivity" />
         <activity
             android:name=".ChatWindowActivity"
-            android:parentActivityName=".OverviewActivity" />
-        <activity android:name=".RegisterUserAlert"></activity>
+            android:parentActivityName=".OverviewActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>
