@@ -115,7 +115,7 @@ public class ProfilePicActivity extends AppCompatActivity{
                 startActivityForResult(Intent.createChooser(intent, "Select Profile Image"), CHOOSE_IMAGE);
             }
         });
-        
+
         findViewById(R.id.buttonSave).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
