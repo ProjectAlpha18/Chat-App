@@ -19,15 +19,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,12 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-
 public class ProfilePicActivity extends AppCompatActivity{
 
     private static final int CHOOSE_IMAGE = 101;
@@ -75,9 +65,9 @@ public class ProfilePicActivity extends AppCompatActivity{
             startActivity(new Intent(this, SignInActivity.class));
         }
 
-        editText = (EditText) findViewById(R.id.user_name);
-        imageView = (ImageView) findViewById(R.id.imageView);
-        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        editText = findViewById(R.id.user_name);
+        imageView = findViewById(R.id.imageView);
+        progressBar = findViewById(R.id.progressbar);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -96,15 +86,11 @@ public class ProfilePicActivity extends AppCompatActivity{
                          .into(imageView);
                 }
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.v("error","The read failed: " + databaseError.getCode());
             }
         });
-
-
-
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,9 +109,6 @@ public class ProfilePicActivity extends AppCompatActivity{
             }
         });
     }
-
-
-
 
     private void saveUserInformation() {
         final String displayName = editText.getText().toString();
@@ -153,15 +136,11 @@ public class ProfilePicActivity extends AppCompatActivity{
                         .into(imageView);
             }
 
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.v("error","The read failed: " + databaseError.getCode());
             }
         });
-
-
-
     }
 
     @Override
