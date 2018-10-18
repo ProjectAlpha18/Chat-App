@@ -19,10 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +37,12 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+
 public class ProfilePicActivity extends AppCompatActivity{
 
     private static final int CHOOSE_IMAGE = 101;
@@ -40,12 +50,12 @@ public class ProfilePicActivity extends AppCompatActivity{
     TextView textView;
     ImageView imageView;
     EditText editText;
+    ProgressBar progressBar;
     String username;
     Uri downloadUri;
     String displayPicUrl;
 
     Uri uriProfileImage;
-    ProgressBar progressBar;
 
     String profileImageUrl;
 
@@ -65,9 +75,10 @@ public class ProfilePicActivity extends AppCompatActivity{
             startActivity(new Intent(this, SignInActivity.class));
         }
 
-        editText = findViewById(R.id.user_name);
-        imageView = findViewById(R.id.imageView);
-        progressBar = findViewById(R.id.progressbar);
+        editText = (EditText) findViewById(R.id.user_name);
+        imageView = (ImageView) findViewById(R.id.imageView);
+        progressBar = (ProgressBar) findViewById(R.id.progressbar);
+        progressBar.setVisibility(View.VISIBLE);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
 
         ref.addValueEventListener(new ValueEventListener() {
@@ -84,13 +95,19 @@ public class ProfilePicActivity extends AppCompatActivity{
                     Glide.with(ProfilePicActivity.this)
                         .load(profileImageUrl)
                          .into(imageView);
+                    progressBar.setVisibility(View.GONE);
+                    displayPicUrl=profileImageUrl;
                 }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.v("error","The read failed: " + databaseError.getCode());
             }
         });
+
+
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,18 +125,25 @@ public class ProfilePicActivity extends AppCompatActivity{
                 saveUserInformation();
             }
         });
+
+        findViewById(R.id.removeDp).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayPicUrl = "https://firebasestorage.googleapis.com/v0/b/chatapp-5d2d8.appspot.com/o/if_Account_1891016.png?alt=media&token=ddb00921-a92e-44d2-8ec1-2f0c9a591876";
+                Glide.with(ProfilePicActivity.this)
+                        .load(displayPicUrl)
+                        .into(imageView);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
+
+
+
     private void saveUserInformation() {
-        final String displayName = editText.getText().toString();
-
-        if (displayName.isEmpty()) {
-            editText.setError("Name required");
-            editText.requestFocus();
-            return;
-        }
-
-        FirebaseUser user = mAuth.getCurrentUser();
+        username = editText.getText().toString();
+        Log.v("usernameWhileSaving",username);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.addValueEventListener(new ValueEventListener() {
@@ -127,20 +151,26 @@ public class ProfilePicActivity extends AppCompatActivity{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 FirebaseUser user = mAuth.getCurrentUser();
                 String uid = user.getUid();
-                dataSnapshot.child(uid).child("username").getRef().setValue(displayName);
-                editText.setText(username);
+                dataSnapshot.child(uid).child("username").getRef().setValue(username);
+                //editText.setText(username);
                 Log.v("picUrlBeforeSettingOnDb",displayPicUrl);
                 dataSnapshot.child(uid).child("displayPictureUrl").getRef().setValue(displayPicUrl);
                 Glide.with(ProfilePicActivity.this)
                         .load(displayPicUrl)
                         .into(imageView);
+                progressBar.setVisibility(View.GONE);
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.v("error","The read failed: " + databaseError.getCode());
             }
+
         });
+
+
+
     }
 
     @Override
@@ -152,6 +182,7 @@ public class ProfilePicActivity extends AppCompatActivity{
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 imageView.setImageBitmap(bitmap);
+                progressBar.setVisibility(View.VISIBLE);
                 storage = FirebaseStorage.getInstance();
                 StorageReference storageRef = storage.getReference().child("ProfilePhotos");
                 StorageReference photoRef = storageRef.child(uriProfileImage.getLastPathSegment());
