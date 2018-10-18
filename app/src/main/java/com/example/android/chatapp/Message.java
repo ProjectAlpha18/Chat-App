@@ -7,6 +7,9 @@ public class Message {
     String messageText;
     HashMap<String, Object> timestampCreated;
 
+    public Message() {
+    }
+
     public Message(String senderName, String messageText, HashMap<String, Object> timestampCreated) {
         this.senderName = senderName;
         this.messageText = messageText;
