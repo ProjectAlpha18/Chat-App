@@ -39,7 +39,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if (message.senderName.equals(OverviewActivity.myUserName)){
 //            RelativeLayout.LayoutParams lp=(RelativeLayout.LayoutParams) messageViewHolder.messageLayout.getLayoutParams();
 //            lp.addRule(RelativeLayout.ALIGN_PARENT_END);
-//            messageViewHolder.messageLayout.setLayoutParams(lp);
+            messageViewHolder.messageLayout.setGravity(Gravity.END);
 
         }
         Log.i(TAG, "onBindViewHolder: message object"+messageViewHolder.messageText);
