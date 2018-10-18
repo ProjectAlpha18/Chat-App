@@ -73,7 +73,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatViewHold
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Chats");
                                 chatRef = ref.push().getKey();
                                 ref.child(chatRef).setValue(new ChatItem(chatItem.getImagePath(), chatItem.getUserName(), chatItem.getUserKey(),chatRef));
-                                FirebaseDatabase.getInstance().getReference().child("Users").child(chatItem.getUserKey()).child("Chats").child(chatRef).setValue(new ChatItem(chatItem.getImagePath(), chatItem.getUserName(), FirebaseAuth.getInstance().getCurrentUser().getUid(),chatRef));
+                                FirebaseDatabase.getInstance().getReference().child("Users").child(chatItem.getUserKey()).child("Chats").child(chatRef).setValue(new ChatItem(chatItem.getImagePath(), OverviewActivity.myUserName, FirebaseAuth.getInstance().getCurrentUser().getUid(),chatRef));
 
                             }
                             Intent intent = new Intent(mCtx, ChatWindowActivity.class);

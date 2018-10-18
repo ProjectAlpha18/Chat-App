@@ -37,6 +37,7 @@
             android:id="@+id/chatWindowMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:layout_weight="8" />
 
         <Button
