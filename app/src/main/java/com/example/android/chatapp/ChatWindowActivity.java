@@ -35,7 +35,7 @@ public class ChatWindowActivity extends AppCompatActivity {
 
     TextView userNameTextView;
     ImageView displayPicImageView;
-    Button sendButton;
+    ImageView sendButton;
     EditText messageEditText;
     DatabaseReference chatsRef;
     String userName, displayPicUrl, pushKey, currentChatRef;
