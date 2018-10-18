@@ -51,8 +51,8 @@ public class ProfilePicActivity extends AppCompatActivity{
     ImageView imageView;
     EditText editText;
     String username;
-    //String photoURL;
-    //String uid;
+    Uri downloadUri;
+    String displayPicUrl;
 
     Uri uriProfileImage;
     ProgressBar progressBar;
@@ -128,7 +128,7 @@ public class ProfilePicActivity extends AppCompatActivity{
 
 
     private void saveUserInformation() {
-        String displayName = editText.getText().toString();
+        final String displayName = editText.getText().toString();
 
         if (displayName.isEmpty()) {
             editText.setError("Name required");
@@ -138,23 +138,30 @@ public class ProfilePicActivity extends AppCompatActivity{
 
         FirebaseUser user = mAuth.getCurrentUser();
 
-        if (user != null && profileImageUrl != null) {
-            UserProfileChangeRequest profile = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(displayName)
-                    .setPhotoUri(Uri.parse(profileImageUrl))
-                    .build();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                FirebaseUser user = mAuth.getCurrentUser();
+                String uid = user.getUid();
+                dataSnapshot.child(uid).child("username").getRef().setValue(displayName);
+                editText.setText(username);
+                Log.v("picUrlBeforeSettingOnDb",displayPicUrl);
+                dataSnapshot.child(uid).child("displayPictureUrl").getRef().setValue(displayPicUrl);
+                Glide.with(ProfilePicActivity.this)
+                        .load(displayPicUrl)
+                        .into(imageView);
+            }
 
-            user.updateProfile(profile)
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task){
-                    if (task.isSuccessful()) {
-                        //Toast.makeText(this, "Profile Updated", Toast.LENGTH_SHORT).show();
-                        //Toast.makeText(this,"profile Udpated", Toast.LENGTH_SHORT)
-                    }
-                        }
-                    });
-        }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("error","The read failed: " + databaseError.getCode());
+            }
+        });
+
+
+
     }
 
     @Override
@@ -166,31 +173,21 @@ public class ProfilePicActivity extends AppCompatActivity{
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uriProfileImage);
                 imageView.setImageBitmap(bitmap);
-                storage = FirebaseStorage.getInstance("/");
-                StorageReference storageRef = storage.getReference();
-                // TODO: upload Image To Firebase Storage;
-
-                Bitmap bitm = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] d = baos.toByteArray();
-
-                UploadTask uploadTask = storageRef.putBytes(d);
-                uploadTask.addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        Toast.makeText(ProfilePicActivity.this, "Upload Unsuccessful.", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                storage = FirebaseStorage.getInstance();
+                StorageReference storageRef = storage.getReference().child("ProfilePhotos");
+                StorageReference photoRef = storageRef.child(uriProfileImage.getLastPathSegment());
+                photoRef.putFile(uriProfileImage).addOnSuccessListener(this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                        while (!urlTask.isSuccessful());
+                        downloadUri = urlTask.getResult();
+                        displayPicUrl = String.valueOf(downloadUri);
+                        Log.v("storedInStorage",displayPicUrl);
                         Toast.makeText(ProfilePicActivity.this, "Upload successful.", Toast.LENGTH_SHORT).show();
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                        // ...
+
                     }
                 });
-
 
             } catch (IOException e) {
                 e.printStackTrace();
