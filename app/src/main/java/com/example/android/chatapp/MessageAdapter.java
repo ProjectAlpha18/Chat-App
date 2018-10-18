@@ -2,6 +2,7 @@ package com.example.android.chatapp;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -40,8 +41,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         if (message.senderName.equals(OverviewActivity.myUserName)){
 //            RelativeLayout.LayoutParams lp=(RelativeLayout.LayoutParams) messageViewHolder.messageLayout.getLayoutParams();
 //            lp.addRule(RelativeLayout.ALIGN_PARENT_END);
-//            messageViewHolder.messageLayout.setLayoutParams(lp);
-
+            LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+//            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams)messageViewHolder.messageLayout.getLayoutParams();
+//            if(params==null){
+//                Log.i(TAG, "onBindViewHolder: null param");
+//            }
+//
+//            params.gravity = Gravity.END;
+//            layoutParams.setLayoutDirection(ViewCompat.LAYOUT_DIRECTION_RTL);
+//            layoutParams.gravity=Gravity.RIGHT;
+//            messageViewHolder.messageLayout.setLayoutParams(layoutParams);
+            messageViewHolder.messageText.setBackgroundResource(R.drawable.my_chat_bubble);
+            messageViewHolder.messageLayout.setGravity(Gravity.END);
+        }else{
+            messageViewHolder.messageText.setBackgroundResource(R.drawable.chat_bubble);
         }
         Log.i(TAG, "onBindViewHolder: message object"+messageViewHolder.messageText);
         messageViewHolder.messageText.setText(message.messageText);

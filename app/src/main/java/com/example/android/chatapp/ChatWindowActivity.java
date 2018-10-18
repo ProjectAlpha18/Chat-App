@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class ChatWindowActivity extends AppCompatActivity {
     ArrayList<Message> messageArrayList;
     RecyclerView messagesRecyclerView;
     MessageAdapter messageAdapter;
+    ScrollView scrollView;
+
     ChildEventListener childEventListener = new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -98,7 +101,13 @@ public class ChatWindowActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         userNameTextView = findViewById(R.id.toolbarUsername);
         displayPicImageView = findViewById(R.id.toolbarIcon);
-
+        scrollView=findViewById(R.id.chatScroll);
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
         messageArrayList=new ArrayList<>();
         messagesRecyclerView = findViewById(R.id.chatWindowRecycler);
         messagesRecyclerView.setHasFixedSize(true);
@@ -128,9 +137,9 @@ public class ChatWindowActivity extends AppCompatActivity {
                 if (!message.equals("")) {
                     //Send Message
                     HashMap<String, Object> timeStampNow = new HashMap<>();
-                    Object timestamp = ServerValue.TIMESTAMP;
-                    timeStampNow.put("timestamp", timestamp);
-                    Message messageObj = new Message(userName, message, timeStampNow);
+
+                    timeStampNow.put("timestamp", ServerValue.TIMESTAMP);
+                    Message messageObj = new Message(OverviewActivity.myUserName, message, timeStampNow);
                     FirebaseDatabase.getInstance().getReference().child("Chats").child(pushKey).push().setValue(messageObj);
                     messageEditText.setText("");
                 }
