@@ -28,7 +28,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class ChatWindowActivity extends AppCompatActivity {
@@ -125,7 +128,8 @@ public class ChatWindowActivity extends AppCompatActivity {
                 if (!message.equals("")) {
                     //Send Message
                     HashMap<String, Object> timeStampNow = new HashMap<>();
-                    timeStampNow.put("timestamp", ServerValue.TIMESTAMP);
+                    Object timestamp = ServerValue.TIMESTAMP;
+                    timeStampNow.put("timestamp", timestamp);
                     Message messageObj = new Message(userName, message, timeStampNow);
                     FirebaseDatabase.getInstance().getReference().child("Chats").child(pushKey).push().setValue(messageObj);
                     messageEditText.setText("");
@@ -135,6 +139,7 @@ public class ChatWindowActivity extends AppCompatActivity {
         reference = FirebaseDatabase.getInstance().getReference().child("Chats").child(currentChatRef);
         reference.addChildEventListener(childEventListener);
     }
+
 
     @Override
     protected void onStop() {
