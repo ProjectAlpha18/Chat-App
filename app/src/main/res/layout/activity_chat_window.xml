@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/default_bg"
+    android:orientation="vertical"
     tools:context=".ChatWindowActivity">
 
     <android.support.v7.widget.Toolbar
@@ -19,15 +20,21 @@
         <include layout="@layout/toolbar_activity_chat_window" />
 
     </android.support.v7.widget.Toolbar>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/chatWindowRecycler"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="538dp"
-        android:layout_marginTop="65dp" />
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chatWindowRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
 
 
     <LinearLayout
+        android:id="@+id/sendLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -48,4 +55,4 @@
             android:text="Send" />
 
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

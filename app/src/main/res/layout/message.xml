@@ -1,18 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+
     android:layout_height="match_parent"
+    android:padding="4dp"
     android:id="@+id/messageLayout">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/messageTextView"
+        android:textSize="24sp"
+        android:textColor="@color/black"
         android:text="text here"/>
+
     <TextView
         android:id="@+id/timeTextView"
-        android:layout_width="30sp"
-        android:layout_height="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignBottom="@+id/messageTextView"
+        android:layout_marginStart="1dp"
         android:layout_toEndOf="@id/messageTextView"
-        android:text="time here"/>
+        android:text="time here" />
 </RelativeLayout>
