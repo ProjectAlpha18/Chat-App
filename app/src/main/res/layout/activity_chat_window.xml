@@ -13,7 +13,7 @@
         android:id="@+id/userToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
+        android:background="#00ab16"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp"
         app:contentInsetStartWithNavigation="0dp">
@@ -37,6 +37,8 @@
         android:id="@+id/sendLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/chat_bubble"
+        android:layout_margin="4dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:padding="5dp">
@@ -44,14 +46,17 @@
         <EditText
             android:id="@+id/chatWindowMessage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:hint="Type a message..."
             android:inputType="text"
             android:layout_weight="8" />
 
-        <Button
+        <ImageView
             android:id="@+id/sendButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:src="@drawable/send_icon"
+            android:scaleType="fitCenter"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:text="Send" />
 
     </LinearLayout>

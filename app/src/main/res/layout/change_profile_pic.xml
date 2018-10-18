@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageView"
             android:layout_width="225dp"
             android:layout_height="225dp"
@@ -43,7 +43,7 @@
         android:layout_margin="4dp"
         android:ems="10"
         android:hint="Enter Username"
-        android:text=""/>
+        android:text="" />
 
     <Button
         android:id="@+id/buttonSave"
@@ -55,6 +55,17 @@
         android:paddingRight="55dp"
         android:text="Save"
         android:textAllCaps="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/removeDp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:paddingLeft="55dp"
+        android:paddingRight="55dp"
+        android:text="Remove dp"
+        android:textAllCaps="true"/>
 
 
 </LinearLayout>
