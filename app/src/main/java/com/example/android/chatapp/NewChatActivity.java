@@ -29,6 +29,7 @@ public class NewChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_chat);
+        OverviewActivity.adapterFlag= 1;
         progressBar = findViewById(R.id.usersProgressBar);
         progressBar.setVisibility(View.VISIBLE);
         allUsersList = new ArrayList<>();
@@ -44,8 +45,9 @@ public class NewChatActivity extends AppCompatActivity {
                     Log.i("username", userName);
                     String displayPicUrl = d.child("displayPictureUrl").getValue(String.class);
                     Log.i("url", displayPicUrl);
-                    if(!d.getKey().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
-                        allUsersList.add(new ChatItem(displayPicUrl, userName));
+                    String userKey=d.getKey();
+                    if(!userKey.equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                        allUsersList.add(new ChatItem(displayPicUrl, userName,userKey,null));
                 }
                 usersAdapter = new ChatsAdapter(NewChatActivity.this, allUsersList);
                 usersRecyclerView.setAdapter(usersAdapter);
@@ -59,5 +61,17 @@ public class NewChatActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        OverviewActivity.adapterFlag=-1;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        OverviewActivity.adapterFlag=-1;
     }
 }
