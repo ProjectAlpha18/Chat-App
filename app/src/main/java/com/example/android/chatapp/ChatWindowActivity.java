@@ -57,6 +57,8 @@ public class ChatWindowActivity extends AppCompatActivity {
             Message message = dataSnapshot.getValue(Message.class);
             Log.i("message OBJ", "onChildAdded: " + message.toString());
             messageArrayList.add(message);
+
+            messagesRecyclerView.scrollToPosition(messageArrayList.size() - 1);
             Log.i("bcd", "onChildAdded: " + messageArrayList);
             messageAdapter.notifyDataSetChanged();
 
