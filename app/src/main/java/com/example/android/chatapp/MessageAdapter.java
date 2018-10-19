@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -59,7 +60,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         Log.i(TAG, "onBindViewHolder: message object"+messageViewHolder.messageText);
         messageViewHolder.messageText.setText(message.messageText);
         Log.i(TAG, "onBindViewHolder: "+message.messageText);
-        messageViewHolder.timeText.setText(message.timestampCreated.get("timestamp").toString());
+        String time=DateUtils.formatDateTime(mCtx,Long.parseLong(message.timestampCreated.get("timestamp").toString()),DateUtils.FORMAT_SHOW_TIME);
+//        messageViewHolder.timeText.setText(message.timestampCreated.get("timestamp").toString());
+        messageViewHolder.timeText.setText(time);
     }
 
     @Override
