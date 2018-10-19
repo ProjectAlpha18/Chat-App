@@ -1,9 +1,13 @@
 package com.example.android.chatapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -59,7 +63,16 @@ public class ChatWindowActivity extends AppCompatActivity {
             messageArrayList.add(message);
             Log.i("bcd", "onChildAdded: " + messageArrayList);
             messageAdapter.notifyDataSetChanged();
+            try {
+                Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    v.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
+                } else {
+                    v.vibrate(100);
+                }
+            }catch (Exception e){
 
+            }
         }
 
         @Override
